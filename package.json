@@ -1,0 +1,9 @@
+{
+  "name": "starlit-lambda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "serverless-python-requirements": "^4.2.5"
+  }
+}

@@ -20,7 +20,7 @@ data "aws_region" "current" {}
 
 resource "aws_sqs_queue" "pending_crawls" {
   name_prefix                = "starlit-pending-crawls"
-  visibility_timeout_seconds = 900
+  visibility_timeout_seconds = 30
 }
 
 resource "aws_sqs_queue" "inventory_data" {
@@ -128,8 +128,8 @@ resource "aws_lambda_function" "crawler" {
   source_code_hash               = "${base64sha256(file(var.lambda_package))}"
   function_name                  = "crawl-handler-${random_id.handler_id.hex}"
   handler                        = "handler.eventHandler"
-  timeout                        = 900
-  reserved_concurrent_executions = 1
+  timeout                        = 30
+  reserved_concurrent_executions = 10
   runtime                        = "nodejs8.10"
   role                           = "${aws_iam_role.lambda_role.arn}"
 

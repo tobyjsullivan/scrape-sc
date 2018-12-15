@@ -10,21 +10,25 @@ const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
 exports.eventHandler = ({Records: records}, context, callback) => {
   console.log('Received records:', records);
+  const promises = [];
   for (i in records) {
     const msg = records[i];
     console.log('Handling:', msg);
     const {body: productId} = msg;
-    crawlProduct(productId).then((result) => {
+    promises.push(crawlProduct(productId).then((result) => {
       if (result) {
         const {productId, title, price, quantity} = result;
         sendResult(productId, title, price, quantity);
       }
 
-      callback(null, result);
-    }, (err) => {
-      callback(err);
-    });
+      return result;
+    }));
   }
+  Promise.all(promises).then((result) => {
+    callback(null, result);
+  }, (err) => {
+    callback(err);
+  });
 };
 
 function crawlProduct(productId) {

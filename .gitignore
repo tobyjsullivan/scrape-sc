@@ -1,4 +1,4 @@
-.serverless
 .terraform
+build
 node_modules
 venv

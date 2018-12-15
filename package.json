@@ -4,6 +4,10 @@
   "main": "index.js",
   "license": "UNLICENSED",
   "dependencies": {
-    "serverless-python-requirements": "^4.2.5"
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.377.0"
   }
 }

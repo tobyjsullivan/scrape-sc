@@ -101,7 +101,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "inventory_data_queue" {
-  name_prefix = "starlit-pending-crawls"
+  name_prefix = "starlit-inventory-data"
   role        = "${aws_iam_role.lambda_role.id}"
 
   policy = <<EOF

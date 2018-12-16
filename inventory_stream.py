@@ -22,6 +22,7 @@ with open('product_data.csv', 'a') as csvfile:
       continue
 
     delete_entries = []
+    i = 0
     for msg in messages['Messages']:
       print('MESSAGE:')
       pprint(msg)
@@ -32,9 +33,10 @@ with open('product_data.csv', 'a') as csvfile:
       writer.writerow([data['productId'], data['title'], data['price'], data['quantity']])
       csvfile.flush()
       delete_entries.append({
-        'Id': data['productId'],
+        'Id': '%s-%d' % (data['productId'], i),
         'ReceiptHandle': handle,
       })
+      i = i + 1
 
     res = sqs.delete_message_batch(QueueUrl=QUEUE_URL, Entries=delete_entries)
     if 'Failed' in res and len(res['Failed']) > 0:

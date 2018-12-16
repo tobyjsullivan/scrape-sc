@@ -3,3 +3,4 @@ build
 node_modules
 venv
 venv3
+/product_data.*
